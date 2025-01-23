@@ -4,6 +4,9 @@ export const APP_SLOGAN =
 export const APP_DESCRIPTION =
   process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
   'We deal on Quality product and make sure our customers gets what they want.'
+export const APP_COPYRIGHT =
+  process.env.NEXT_PUBLIC_APP_COPYRIGHT ||
+  `Copyright © 2025 ${APP_NAME}. Allrights reserved`
 
 export const PAGE_SIZE = Number(process.env.PAGE_SIZE || 9)
 export const FREE_SHIPPING_MIN_PRICE = Number(
