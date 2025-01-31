@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 import { Cart, OrderItem, ShippingAddress } from '@/types'
-import { calcDeliveryDateAndPrice } from '@/lib/action/order.action'
+import { calcDeliveryDateAndPrice } from '@/lib/actions/order.actions'
 
 const initialState: Cart = {
   items: [],
@@ -82,7 +82,7 @@ const useCartStore = create(
         return foundItem.clientId
       },
       updateItem: async (item: OrderItem, quantity: number) => {
-        const { items } = get().cart
+        const { items, shippingAddress } = get().cart
         const exist = items.find(
           (x) =>
             x.product === item.product &&
@@ -103,12 +103,13 @@ const useCartStore = create(
             items: updatedCartItems,
             ...(await calcDeliveryDateAndPrice({
               items: updatedCartItems,
+              shippingAddress,
             })),
           },
         })
       },
       removeItem: async (item: OrderItem) => {
-        const { items } = get().cart
+        const { items, shippingAddress } = get().cart
         const updatedCartItems = items.filter(
           (x) =>
             x.product !== item.product ||
@@ -121,6 +122,7 @@ const useCartStore = create(
             items: updatedCartItems,
             ...(await calcDeliveryDateAndPrice({
               items: updatedCartItems,
+              shippingAddress,
             })),
           },
         })

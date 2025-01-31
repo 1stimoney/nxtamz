@@ -116,7 +116,7 @@ const ProductCard = ({
             <ProductDetails />
           </CardContent>
           <CardFooter className='p-3'>
-            {hideAddToCart && <AddButton />}
+            {!hideAddToCart && <AddButton />}
           </CardFooter>
         </>
       )}
